@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;600&family=Orbitron:wght@400;700&display=swap');
+
+        :root {
+            --bg-1: #0f1724;
+            --bg-2: #071029;
+            --accent: #ffcb05;
+            /* amarillo poké */
+            --accent-2: #ff4655;
+            /* rojo glow */
+            --glass: rgba(255, 255, 255, 0.04);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: radial-gradient(1200px 400px at 10% 10%, rgba(255, 82, 82, 0.05), transparent 10%),
+                linear-gradient(180deg, var(--bg-1), var(--bg-2));
+            color: #e6eef8;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding: 20px;
+            background-image: url(./img/fondo.jpg);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 16px;
+            margin-bottom: 100px;
+        }
+
+        input {
+            height: 40px;
+            font-size: 15px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 0, 0, 0.06);
+            background: rgba(255, 255, 255, 0.644);
+            color: #000000;
+            outline: none;
+        }
+
+        input::placeholder {
+            color: rgba(0, 0, 0, 0.5);
+            font-size: 13px;
+        }
+
+        button {
+            height: 44px;
+            font-size: 15px;
+            padding: 8px 14px;
+            cursor: pointer;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(90deg, var(--accent), #0059ff);
+            color: #ffffff;
+            font-weight: 700;
+            box-shadow: 0 6px 18px rgba(255, 76, 76, 0.14), 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+            transition: transform .12s ease, box-shadow .12s ease;
+        }
+
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        #pokebola {
+            width: 88px;
+            filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.5));
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 203, 5, 0.15);
+            border-radius: 50%;
+            transition: transform .2s ease;
+        }
+
+        #logo {
+            width: 260px;
+            text-shadow: 0 14px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 76, 76, 0.12);
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
+            transition: transform .2s ease;
+        }
+
+        main.contenedor {
+            max-width: 1100px;
+            margin: 30px auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            /* 3 columnas en desktop */
+            grid-auto-rows: 1fr;
+            gap: 24px;
+            padding: 0 16px 60px;
+            align-items: stretch;
+        }
+
+        /* Card: estilo moderno tipo juego móvil */
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 20px;
+            border-radius: 18px;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)),
+                repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.01) 0 1px, transparent 1px 8px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow:
+                0 14px 40px rgba(2, 6, 23, 0.6),
+                0 0 30px rgba(255, 70, 85, 0.06);
+            backdrop-filter: blur(6px) saturate(120%);
+            transition: transform .18s cubic-bezier(.2, .9, .3, 1), box-shadow .18s;
+            overflow: hidden;
+            min-height: 360px;
+            height: 100%;
+            grid-column: 1 / 2;
+            justify-self: stretch;
+        }
+
+        .card::before {
+            /* pequeño resplandor superior con color de acento para sensación de juego */
+            content: '';
+            position: absolute;
+            top: -40%;
+            left: -20%;
+            width: 160%;
+            height: 80%;
+            background: radial-gradient(closest-side, rgba(255, 76, 76, 0.10), transparent 40%);
+            transform: rotate(-12deg);
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow:
+                0 26px 60px rgba(2, 6, 23, 0.7),
+                0 0 48px rgba(255, 70, 85, 0.12);
+        }
+
+        .card h1 {
+            margin: 0;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #fff;
+            text-shadow: 0 3px 18px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            padding: 0 8px;
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 13px;
+            font-family: 'Orbitron', 'Press Start 2P', sans-serif;
+            color: rgb(255, 255, 255);
+            padding: 4px 8px;
+            border-radius: 6px;
+            width: 100%;
+            text-align: center;
+        }
+
+        #img {
+            width: 240px;
+            height: 240px;
+            object-fit: contain;
+            filter: drop-shadow(0 18px 30px rgba(4, 10, 24, 0.7)) saturate(120%);
+            transition: transform .18s;
+            border-radius: 14px;
+            padding: 6px;
+            flex: 1;
+        }
+
+        .card:hover #img {
+            transform: scale(1.06);
+        }
+
+        .informacion {
+            grid-column: 2 / 3;
+            min-height: 360px;
+            height: 100%;
+            justify-self: stretch;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)),
+                repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.01) 0 1px, transparent 1px 8px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 18px;
+            box-shadow:
+                0 14px 40px rgba(2, 6, 23, 0.6),
+                0 0 30px rgba(255, 70, 85, 0.06);
+            backdrop-filter: blur(6px) saturate(120%);
+            text-align: center;
+            color: #e6eef8;
+        }
+
+        .info-grid {
+            display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas en la primera fila */
+    grid-template-rows: auto auto; /* Dos filas (la segunda es para debilidades) */
+    gap: 16px;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+        }
+
+        .info-section:nth-child(1) { /* Tipos */
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+.info-section:nth-child(2) { /* Movimientos */
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+.info-section:nth-child(3) { /* Debilidades */
+    grid-column: 1 / -1; /* Ocupa todo el ancho en la segunda fila */
+    grid-row: 2 / 3;
+}
+
+        .info-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.015), rgba(0, 0, 0, 0.01));
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .informacion h1 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 16px;
+            margin: 0 0 12px;
+            color: #fff;
+            text-shadow: 0 3px 18px rgba(0, 0, 0, 0.6);
+        }
+
+        .informacion h3 {
+            font-family: 'Orbitron', 'Press Start 2P', sans-serif;
+            font-size: 14px;
+            margin: 0 0 8px;
+            color: rgb(255, 255, 255);
+            letter-spacing: 0.06em;
+        }
+
+        .section-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 11px;
+            margin-bottom: 20px;
+            color: #fff;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        /* estilos para los badges de tipo */
+        #tipos,
+        #debilidades {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .type-badge,
+        .weakness-badge {
+            font-family: 'Orbitron', 'Press Start 2P', sans-serif;
+            padding: 5px 10px;
+            font-size: 13px;
+            border-radius: 999px;
+            text-align: center;
+        }
+
+        .type-badge:hover,
+        .weakness-badge:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 36px rgba(2, 6, 23, 0.5);
+        }
+
+        .moves-container::-webkit-scrollbar {
+            display: none;
+            /* Oculta la barra visualmente */
+            width: 0;
+            /* Asegura que no ocupe espacio */
+            height: 0;
+        }
+
+        .moves-container {
+            -ms-overflow-style: none;
+            /* Oculta la barra en Internet Explorer y Edge (versiones antiguas) */
+            scrollbar-width: none;
+            /* Oculta la barra en Firefox */
+        }
+
+        .moves-container {
+            width: 100%;
+            max-height: 180px;
+            /* Mantiene la altura limitada */
+            overflow-y: scroll;
+            /* Mantiene la funcionalidad de scroll */
+            padding-right: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        /* Estilo para cada movimiento individual */
+        .move-item {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            /* Fondo sutil */
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            text-transform: capitalize;
+            transition: background .15s;
+        }
+
+        .move-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Ajuste el grid para acomodar 3 secciones en 2 filas */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            /* Dos columnas */
+            grid-template-rows: auto auto;
+            /* Dos filas */
+            gap: 16px;
+            width: 100%;
+            height: 100%;
+            flex: 1;
+        }
+
+        .info-section:nth-child(1) {
+            /* Tipos */
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+        }
+
+        .info-section:nth-child(2) {
+            /* Movimientos (Nuevo) */
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+        }
+
+        .info-section:nth-child(3) {
+            /* Debilidades */
+            grid-column: 1 / -1;
+            /* Ocupa todo el ancho en la segunda fila */
+            grid-row: 2 / 3;
+        }
+
+
+        .estadisticas {
+            grid-column: 3 / 4;
+            min-height: 360px;
+            height: 100%;
+            justify-self: stretch;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)),
+                repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.01) 0 1px, transparent 1px 8px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 18px;
+            box-shadow:
+                0 14px 40px rgba(2, 6, 23, 0.6),
+                0 0 30px rgba(255, 70, 85, 0.06);
+            backdrop-filter: blur(6px) saturate(120%);
+            text-align: center;
+            color: #e6eef8;
+            overflow-y: auto;
+        }
+
+        .estadisticas h1 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 13px;
+            margin: 0 0 12px;
+            color: #fff;
+            text-shadow: 0 3px 18px rgba(0, 0, 0, 0.6);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .stats-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 4px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.01));
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .stat-label {
+            font-family: 'Orbitron', 'Press Start 2P', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: capitalize;
+            letter-spacing: 0.06em;
+        }
+
+        .stat-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .stat-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6390F0, #5280D0);
+            border-radius: 999px;
+            transition: width .4s cubic-bezier(.34, 1.56, .64, 1);
+            box-shadow: 0 0 12px rgba(99, 144, 240, 0.6) inset;
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', 'Press Start 2P', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .stat-value-text {
+            font-family: 'Orbitron', 'Press Start 2P', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        @media (max-width: 1099px) {
+    /* Rediseño de la cuadrícula principal a 2 columnas */
+    main.contenedor {
+        grid-template-columns: 1fr 1fr; /* 2 columnas de igual ancho */
+        gap: 30px 20px; /* Separación vertical y horizontal */
+        max-width: 768px; /* Limitar el ancho en tabletas para mejor lectura */
+    }
+
+    /* La Card (imagen) y la Información se colocan lado a lado en la primera fila */
+    .card {
+        grid-column: 1 / 2; /* Primera columna */
+        grid-row: 1 / 2; /* Primera fila */
+    }
+    .informacion {
+        grid-column: 2 / 3; /* Segunda columna */
+        grid-row: 1 / 2; /* Primera fila */
+    }
+
+    /* Las Estadísticas pasan a ocupar todo el ancho en la segunda fila (de últimas) */
+    .estadisticas {
+        grid-column: 1 / -1; /* Ocupa todo el ancho (columna 1 a la -1) */
+        grid-row: 2 / 3; /* Se coloca en la segunda fila */
+    }
+
+    /* Ajustes visuales menores */
+    header {
+        margin-bottom: 60px;
+    }
+
+    #logo {
+        width: 220px;
+    }
+
+    #pokebola {
+        width: 70px;
+    }
+}
+
+/* 2. Tabletas pequeñas (~768px y menos) - Pasa a 1 columna */
+@media (max-width: 700px) {
+    body {
+        padding: 15px;
+    }
+
+    header {
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 40px;
+        padding: 12px;
+    }
+
+    header > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    #logo {
+        width: 200px;
+    }
+
+    #pokebola {
+        width: 0px;
+    }
+
+    input, button {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    main.contenedor {
+        grid-template-columns: 1fr; /* Una sola columna */
+        gap: 20px;
+        padding: 0 12px 40px;
+    }
+
+    /* Todas las secciones ocupan todo el ancho y se apilan automáticamente en el orden del HTML:
+       Card, Información, Estadísticas. */
+    .card,
+    .informacion,
+    .estadisticas {
+        grid-column: 1 / -1; /* Ocupa todo el ancho */
+        grid-row: auto; /* Permite el flujo normal */
+        min-height: auto;
+    }
+
+    .card h1 {
+        font-size: 16px;
+    }
+
+    #img {
+        width: 300px;
+        height: 300px;
+    }
+
+    /* Mantenemos el grid interno de Información en 1 columna para móviles */
+    .info-grid {
+        grid-template-columns: 1fr; /* Una sola columna */
+        grid-template-rows: auto auto auto; /* Tres filas (para apilar) */
+    }
+
+    .info-section:nth-child(1),
+    .info-section:nth-child(2),
+    .info-section:nth-child(3) {
+        grid-column: 1 / -1;
+        /* Las filas se auto-ajustan en el orden del HTML (1, 2, 3) */
+        grid-row: auto;
+    }
+
+    .section-title {
+        font-size: 10px;
+        margin-bottom: 12px;
+    }
+
+    .estadisticas h1 {
+        font-size: 12px;
+    }
+}
+
+/* 3. Móviles y muy pequeños (480px y 360px) - Mantenemos los estilos existentes para ajustes finos */
+
+/* Móviles */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    header {
+        margin-bottom: 30px;
+        padding: 8px;
+    }
+
+    #logo {
+        width: 160px;
+    }
+
+    input {
+        height: 38px;
+        font-size: 14px;
+    }
+
+    button {
+        height: 40px;
+        font-size: 14px;
+    }
+
+    main.contenedor {
+        gap: 16px;
+        padding: 0 8px 30px;
+    }
+
+    .card,
+    .informacion,
+    .estadisticas {
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+    .card h1 {
+        font-size: 14px;
+    }
+
+    .card h3 {
+        font-size: 13px;
+    }
+
+    #img {
+        width: 240px;
+        height: 240px;
+    }
+
+    .type-badge,
+    .weakness-badge {
+        font-size: 13px;
+        padding: 4px 8px;
+    }
+
+    .move-item {
+        font-size: 13px;
+        padding: 3px 6px;
+    }
+
+    .moves-container {
+        max-height: 150px;
+    }
+
+    .section-title {
+        font-size: 9px;
+        margin-bottom: 10px;
+    }
+
+    .estadisticas h1 {
+        font-size: 11px;
+    }
+
+    .stat-label {
+        font-size: 12px;
+    }
+
+    .stat-value-text {
+        font-size: 12px;
+    }
+
+    .stat-bar {
+        height: 16px;
+    }
+}
+
+/* Móviles muy pequeños */
+@media (max-width: 360px) {
+    #logo {
+        width: 140px;
+    }
+
+    #pokebola {
+        width: 45px;
+    }
+
+    .card h1 {
+        font-size: 12px;
+    }
+
+    #img {
+        width: 140px;
+        height: 140px;
+    }
+
+    .type-badge,
+    .weakness-badge {
+        font-size: 10px;
+        padding: 3px 6px;
+    }
+}
+    </style>
+
+    <header>
+        <div>
+            <img id="pokebola" src="./img/pokebola.png" alt="">
+            <img id="logo" src="./img/logo.png" alt="">
+        </div>
+        <div>
+            <input id="pok" type="text" placeholder="Escriba el nombre o numero de pokemon">
+            <button onclick="traer()">Buscar</button>
+        </div>
+
+    </header>
+
+    <main class="contenedor">
+        <section class="card">
+            <h1 id="nombre"></h1>
+            <img id="img" alt="">
+            <h3 id="id"></h3>
+            <h3 id="altura"></h3>
+            <h3 id="peso"></h3>
+        </section>
+
+        <section class="informacion">
+            <div class="info-grid">
+                <div class="info-section">
+                    <h2 class="section-title">Tipos</h2>
+                    <div id="tipos"></div>
+                </div>
+
+                <div class="info-section">
+                    <h2 class="section-title">Movimientos</h2>
+                    <div id="movimientos" class="moves-container">
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h2 class="section-title">Debilidades</h2>
+                    <div id="debilidades"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="estadisticas">
+            <h1>Estadisticas</h1>
+            <div class="stats-container" id="statsContainer"></div>
+        </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+
+        // pequeño mapa de colores característicos por tipo
+        const typeColors = {
+            normal: '#A8A77A',
+            fire: '#EE8130',
+            water: '#6390F0',
+            electric: '#F7D02C',
+            grass: '#7AC74C',
+            ice: '#96D9D6',
+            fighting: '#C22E28',
+            poison: '#A33EA1',
+            ground: '#E2BF65',
+            flying: '#A98FF3',
+            psychic: '#F95587',
+            bug: '#A6B91A',
+            rock: '#B6A136',
+            ghost: '#735797',
+            dragon: '#6F35FC',
+            dark: '#705746',
+            steel: '#B7B7CE',
+            fairy: '#D685AD'
+        };
+
+        function hexToRgb(hex) {
+            const clean = hex.replace('#', '');
+            const bigint = parseInt(clean, 16);
+            return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255];
+        }
+
+        // devuelve 'black' o 'white' según contraste
+        function getContrastColor(hex) {
+            const [r, g, b] = hexToRgb(hex);
+            const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+            return luminance > 0.6 ? '#071022' : '#ffffff';
+        }
+
+        // oscurece un color hex un porcentaje (0..1)
+        function darken(hex, amount = 0.12) {
+            const [r, g, b] = hexToRgb(hex);
+            const nr = Math.max(0, Math.floor(r * (1 - amount)));
+            const ng = Math.max(0, Math.floor(g * (1 - amount)));
+            const nb = Math.max(0, Math.floor(b * (1 - amount)));
+            return `rgb(${nr}, ${ng}, ${nb})`;
+        }
+
+        // convierte hex a rgba string con alpha
+        function hexToRgba(hex, alpha = 1) {
+            const [r, g, b] = hexToRgb(hex);
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+
+        // Modificamos 'traer()' para que acepte un argumento opcional.
+        // Si no se proporciona 'idOrName', usa el valor del input.
+        async function traer(idOrName = null) {
+            let pokemon;
+            if (idOrName) {
+                pokemon = idOrName; // Usar el valor proporcionado al llamar a la función
+            } else {
+                pokemon = document.getElementById("pok").value; // Usar el valor del input
+            }
+
+            // Si no hay valor ni en el argumento ni en el input, salimos.
+            if (!pokemon) return;
+
+            try {
+                let res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
+                console.log(res);
+                document.getElementById("nombre").textContent = res.data.name;
+                document.getElementById("img").src = res.data.sprites.other["official-artwork"]["front_default"];
+                document.getElementById("altura").textContent = `Altura: ${res.data.height / 10} m`;
+                document.getElementById("peso").textContent = `Peso: ${res.data.weight / 10} kg`;
+                document.getElementById("id").textContent = ` #${res.data.id}`;
+
+                // tipos: crear badges independientes con color característico
+                const tiposDiv = document.getElementById("tipos");
+                tiposDiv.innerHTML = '';
+                const typesList = res.data.types.map(t => t.type.name);
+                const colors = typesList.map(name => typeColors[name] || '#999999');
+
+                typesList.forEach((name, idx) => {
+                    const base = colors[idx];
+                    const darker = darken(base, 0.14);
+                    const badge = document.createElement('span');
+                    badge.className = 'type-badge';
+                    badge.textContent = name;
+                    badge.style.background = `linear-gradient(180deg, ${base}, ${darker})`;
+                    badge.style.color = getContrastColor(base);
+                    tiposDiv.appendChild(badge);
+                });
+
+                // --- 2. Movimientos (NUEVA LÓGICA) ---
+                const movimientosDiv = document.getElementById("movimientos");
+                movimientosDiv.innerHTML = '';
+
+                // Muestra solo los primeros 15 movimientos para evitar una lista demasiado larga
+                const movesToShow = res.data.moves.slice(0, 15);
+
+                if (movesToShow.length > 0) {
+                    movesToShow.forEach(m => {
+                        const moveName = m.move.name.replace(/-/g, ' '); // Reemplaza guiones por espacios
+                        const item = document.createElement('span');
+                        item.className = 'move-item';
+                        item.textContent = moveName;
+                        movimientosDiv.appendChild(item);
+                    });
+                } else {
+                    movimientosDiv.textContent = 'No aprende movimientos por nivel/MT.';
+                }
+
+                // obtener debilidades consultando cada tipo
+                const debilidadesSet = new Set();
+                for (const tipo of res.data.types) {
+                    const typeRes = await axios.get(tipo.type.url);
+                    const damageFrom = typeRes.data.damage_relations.double_damage_from;
+                    damageFrom.forEach(t => debilidadesSet.add(t.name));
+                }
+
+                // mostrar debilidades
+                const debilidadesDiv = document.getElementById("debilidades");
+                debilidadesDiv.innerHTML = '';
+                const debilidadesList = Array.from(debilidadesSet);
+
+                debilidadesList.forEach(name => {
+                    const base = typeColors[name] || '#999999';
+                    const darker = darken(base, 0.14);
+                    const badge = document.createElement('span');
+                    badge.className = 'weakness-badge';
+                    badge.textContent = name;
+                    badge.style.background = `linear-gradient(180deg, ${base}, ${darker})`;
+                    badge.style.color = getContrastColor(base);
+                    debilidadesDiv.appendChild(badge);
+                });
+
+                // aplicar fondo de la tarjeta según los tipos
+                const card = document.querySelector('.card');
+
+                if (colors.length === 1) {
+                    // fondo sólido con ligero degradado
+                    const b = colors[0];
+                    card.style.background = `linear-gradient(180deg, ${b}, ${darken(b, 0.18)})`;
+                } else {
+                    // degradado entre los colores de los tipos (ángulo 135deg para sensación dinámica)
+                    card.style.background = `linear-gradient(135deg, ${colors.join(', ')})`;
+                }
+
+                // ajustar color del texto dentro de la card para buen contraste
+                // usamos el primer color para decidir contraste general
+                const textColor = getContrastColor(colors[0]);
+                card.style.color = textColor;
+
+                // añadir un sutil resplandor exterior acorde al primer tipo
+                const glow = `0 14px 40px rgba(2,6,23,0.6), 0 0 30px ${hexToRgba(colors[0], 0.18)}`;
+                card.style.boxShadow = glow;
+
+                // mostrar estadísticas
+                const statsContainer = document.getElementById("statsContainer");
+                statsContainer.innerHTML = '';
+
+                res.data.stats.forEach(stat => {
+                    const statName = stat.stat.name;
+                    const statValue = stat.base_stat;
+                    const maxStat = 255;
+
+                    const statItem = document.createElement('div');
+                    statItem.className = 'stat-item';
+
+                    const label = document.createElement('span');
+                    label.className = 'stat-label';
+                    label.textContent = statName;
+
+                    const header = document.createElement('div');
+                    header.className = 'stat-header';
+
+                    const value = document.createElement('span');
+                    value.className = 'stat-value-text';
+                    value.textContent = `${statValue} / ${maxStat}`;
+
+                    header.appendChild(label);
+                    header.appendChild(value);
+
+                    const bar = document.createElement('div');
+                    bar.className = 'stat-bar';
+
+                    const fill = document.createElement('div');
+                    fill.className = 'stat-fill';
+                    fill.style.width = `${(statValue / maxStat) * 100}%`;
+
+                    // aplicar color(es) del tipo a la barra
+                    if (colors.length === 1) {
+                        const base = colors[0];
+                        const darker = darken(base, 0.25);
+                        fill.style.background = `linear-gradient(90deg, ${base}, ${darker})`;
+                        fill.style.boxShadow = `0 0 12px ${hexToRgba(base, 0.8)} inset`;
+                    } else {
+                        // degradado entre los colores de los tipos
+                        const gradientColors = colors.slice(0, 3).join(', ');
+                        fill.style.background = `linear-gradient(90deg, ${gradientColors})`;
+                        fill.style.boxShadow = `0 0 12px ${hexToRgba(colors[0], 0.6)} inset`;
+                    }
+
+                    bar.appendChild(fill);
+                    statItem.appendChild(header);
+                    statItem.appendChild(bar);
+                    statsContainer.appendChild(statItem);
+                });
+            } catch (error) {
+                console.error("Error al buscar el Pokémon:", error);
+                document.getElementById("nombre").textContent = "Pokémon no encontrado";
+                document.getElementById("img").src = ""; // limpiar imagen
+                document.getElementById("altura").textContent = "";
+                document.getElementById("peso").textContent = "";
+                document.getElementById("id").textContent = "";
+                document.getElementById("tipos").innerHTML = "";
+                document.getElementById("debilidades").innerHTML = "";
+                document.getElementById("statsContainer").innerHTML = "";
+                document.querySelector('.card').style.background = ''; // resetear fondo de tarjeta
+                document.querySelector('.card').style.boxShadow = ''; // resetear sombra
+            }
+        }
+
+
+
+        // Llamar a la función 'traer' con el ID del primer Pokémon (1) al cargar la página
+        traer('1');
+    </script>
+</body>
+
+</html>
